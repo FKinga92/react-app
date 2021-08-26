@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
+
 import Menu from "../components/menus/Menu";
-import MenuModel from "../models/Menu";
-import { RootState } from "../store";
+import { menuSelectors } from "../store/menu/menu-selectors";
 
 const MenusPage: React.FC = () => {
-  const menus = useSelector<RootState, MenuModel[]>((state) => state.menus);
+  const menus = useSelector(menuSelectors.getMenus);
 
   return (
     <div>
