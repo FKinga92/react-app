@@ -1,7 +1,9 @@
+import Header from "./Header";
+
 const Layout: React.FC = (props) => {
   return (
     <div>
-      <header>Header</header>
+      <Header />
       <main>{props.children}</main>
     </div>
   );
