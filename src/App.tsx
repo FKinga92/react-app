@@ -4,6 +4,7 @@ import MenusPage from './pages/Menus';
 import NewMenuPage from './pages/NewMenu';
 import EditMenuPage from './pages/EditMenu';
 import Layout from './components/ui/Layout';
+import NotFoundPage from './pages/NotFound';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route path='/edit-menu/:id'>
             <EditMenuPage />
+          </Route>
+          <Route path='*'>
+            <NotFoundPage />
           </Route>
         </Switch>
       </Layout>

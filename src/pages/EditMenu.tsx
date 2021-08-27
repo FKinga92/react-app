@@ -19,7 +19,7 @@ const EditMenuPage: React.FC = () => {
   return (
     <div>
       <h1>Edit menu</h1>
-      <MenuForm type={MenuFormType.Edit} />
+      {menu ? <MenuForm type={MenuFormType.Edit} /> : <p>Could not find menu</p>}
     </div>
   );
 };
