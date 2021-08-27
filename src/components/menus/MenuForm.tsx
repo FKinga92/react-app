@@ -36,6 +36,11 @@ const MenuForm: React.FC<{ type: MenuFormType }> = props => {
     redirect();
   };
 
+  const onDelete = () => {
+    dispatch(menuActions.deleteMenu({ id: menu!.id }));
+    redirect();
+  };
+
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(menuFormActions.updateName({ name: event.target.value }));
   };
@@ -61,14 +66,18 @@ const MenuForm: React.FC<{ type: MenuFormType }> = props => {
               <MenuItemFields key={item.id} item={item} />
             ))}
           </div>
+          <button>{isEditForm ? 'Save' : 'Add menu'}</button>
+          {isEditForm && (
+            <div>
+              <button type='button' onClick={onCancel}>
+                Cancel
+              </button>
+              <button type='button' onClick={onDelete}>
+                Delete Menu
+              </button>
+            </div>
+          )}
         </div>
-      )}
-
-      <button>{isEditForm ? 'Save' : 'Add menu'}</button>
-      {isEditForm && (
-        <button type='button' onClick={onCancel}>
-          Cancel
-        </button>
       )}
     </form>
   );
