@@ -1,19 +1,19 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
 
-import MenusPage from "./pages/Menus";
-import MenuForm from "./pages/MenuForm";
-import Layout from "./components/ui/Layout";
+import MenusPage from './pages/Menus';
+import Layout from './components/ui/Layout';
+import NewMenuPage from './pages/NewMenu';
 
 function App() {
   return (
     <div>
       <Layout>
         <Switch>
-          <Route path="/" exact>
+          <Route path='/' exact>
             <MenusPage />
           </Route>
-          <Route path="/new-menu">
-            <MenuForm />
+          <Route path='/new-menu'>
+            <NewMenuPage />
           </Route>
         </Switch>
       </Layout>

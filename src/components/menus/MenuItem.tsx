@@ -1,4 +1,4 @@
-const MenuItem: React.FC<{ name: string; price: number }> = (props) => {
+const MenuItem: React.FC<{ name: string; price: string }> = props => {
   return (
     <li>
       <p>{props.name}</p>
