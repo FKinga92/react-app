@@ -1,9 +1,9 @@
 import { Route, Switch } from 'react-router-dom';
 
 import MenusPage from './pages/Menus';
-import Layout from './components/ui/Layout';
 import NewMenuPage from './pages/NewMenu';
 import EditMenuPage from './pages/EditMenu';
+import Layout from './components/ui/Layout';
 
 function App() {
   return (

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { MenuItem as MenuItemModel } from '../../models/MenuItem';
+
 import MenuItem from './MenuItem';
+import { MenuItem as MenuItemModel } from '../../models/MenuItem';
 
 const Menu: React.FC<{ id: number; name: string; items: MenuItemModel[] }> = props => {
   return (

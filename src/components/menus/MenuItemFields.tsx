@@ -6,9 +6,7 @@ import { AppDispatch } from '../../store';
 import { menuFormSelectors } from '../../store/menu-form/menu-form-selectors';
 import { menuFormActions } from '../../store/menu-form/menu-form-slice';
 
-const MenuItemFields: React.FC<{
-  item: MenuItem;
-}> = props => {
+const MenuItemFields: React.FC<{ item: MenuItem }> = props => {
   const nameInputId = `item-name-${props.item.id}`;
   const priceInputId = `item-price-${props.item.id}`;
 
@@ -16,29 +14,20 @@ const MenuItemFields: React.FC<{
   const dispatch = useDispatch<AppDispatch>();
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!menuItem) {
-      return;
-    }
-    dispatch(menuFormActions.updateMenuItemName({ id: menuItem.id, name: event.target.value }));
+    dispatch(menuFormActions.updateMenuItemName({ id: menuItem!.id, name: event.target.value }));
   };
 
   const onPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!menuItem) {
-      return;
-    }
     dispatch(
       menuFormActions.updateMenuItemPrice({
-        id: menuItem.id,
+        id: menuItem!.id,
         price: event.target.value.replace(/\D/, ''),
       })
     );
   };
 
   const onDelete = () => {
-    if (!menuItem) {
-      return;
-    }
-    dispatch(menuFormActions.deleteMenuItem({ id: menuItem.id }));
+    dispatch(menuFormActions.deleteMenuItem({ id: menuItem!.id }));
   };
 
   return (
