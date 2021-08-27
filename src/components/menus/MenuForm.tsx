@@ -1,26 +1,39 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import MenuItemFields from './MenuItemFields';
+import { MenuFormType } from '../../models/MenuForm';
 import { getEmptyMenuItem } from '../../models/MenuItem';
 import { AppDispatch } from '../../store';
 import { menuFormSelectors } from '../../store/menu-form/menu-form-selectors';
 import { menuFormActions } from '../../store/menu-form/menu-form-slice';
 import { menuActions } from '../../store/menu/menu-slice';
-import MenuItemFields from './MenuItemFields';
 
-const MenuForm: React.FC = () => {
+const MenuForm: React.FC<{ type: MenuFormType }> = props => {
   const menu = useSelector(menuFormSelectors.getItem);
   const dispatch = useDispatch<AppDispatch>();
   const history = useHistory();
+
+  const isEditForm = props.type === MenuFormType.Edit;
+
+  const redirect = () => {
+    history.push({ pathname: '/' });
+    dispatch(menuFormActions.clear());
+  };
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!menu) {
       return;
     }
-    dispatch(menuActions.addMenu({ menu }));
-    history.push({ pathname: '/' });
-    dispatch(menuFormActions.clear());
+
+    const actionToDispatch = isEditForm ? menuActions.updateMenu : menuActions.addMenu;
+    dispatch(actionToDispatch({ menu }));
+    redirect();
+  };
+
+  const onCancel = () => {
+    redirect();
   };
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +64,12 @@ const MenuForm: React.FC = () => {
         </div>
       )}
 
-      <button>Add Menu</button>
+      <button>{isEditForm ? 'Save' : 'Add menu'}</button>
+      {isEditForm && (
+        <button type='button' onClick={onCancel}>
+          Cancel
+        </button>
+      )}
     </form>
   );
 };

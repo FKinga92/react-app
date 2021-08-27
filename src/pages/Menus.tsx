@@ -11,7 +11,7 @@ const MenusPage: React.FC = () => {
     <div>
       <h1>All Menus</h1>
       {menus.map(menu => (
-        <Menu key={menu.id} name={menu.name} items={menu.items} />
+        <Menu key={menu.id} id={menu.id} name={menu.name} items={menu.items} />
       ))}
     </div>
   );

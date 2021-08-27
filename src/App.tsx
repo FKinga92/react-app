@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import MenusPage from './pages/Menus';
 import Layout from './components/ui/Layout';
 import NewMenuPage from './pages/NewMenu';
+import EditMenuPage from './pages/EditMenu';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
           </Route>
           <Route path='/new-menu'>
             <NewMenuPage />
+          </Route>
+          <Route path='/edit-menu/:id'>
+            <EditMenuPage />
           </Route>
         </Switch>
       </Layout>
