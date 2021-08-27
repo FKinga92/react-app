@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { Menu } from '../../models/Menu';
-import { MenuItem } from '../../models/MenuItem';
 
 const mockMenus: Menu[] = [
   {

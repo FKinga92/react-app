@@ -15,14 +15,14 @@ const MenuItemFields: React.FC<{
   const menuItem = useSelector(menuFormSelectors.getMenuItem(props.item.id));
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!menuItem) {
       return;
     }
     dispatch(menuFormActions.updateMenuItemName({ id: menuItem.id, name: event.target.value }));
   };
 
-  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!menuItem) {
       return;
     }
@@ -34,19 +34,24 @@ const MenuItemFields: React.FC<{
     );
   };
 
+  const onDelete = () => {
+    if (!menuItem) {
+      return;
+    }
+    dispatch(menuFormActions.deleteMenuItem({ id: menuItem.id }));
+  };
+
   return (
     <div>
       {menuItem && (
         <Fragment>
           <label htmlFor={nameInputId}>Name:</label>
-          <input type='text' id={nameInputId} value={menuItem.name} onChange={handleNameChange} />
+          <input type='text' id={nameInputId} value={menuItem.name} onChange={onNameChange} />
           <label htmlFor={priceInputId}>Price:</label>
-          <input
-            type='number'
-            id={priceInputId}
-            value={menuItem.price}
-            onChange={handlePriceChange}
-          />
+          <input type='number' id={priceInputId} value={menuItem.price} onChange={onPriceChange} />
+          <button type='button' title='Delete item' onClick={onDelete}>
+            X
+          </button>
         </Fragment>
       )}
     </div>

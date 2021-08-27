@@ -30,6 +30,9 @@ const menuFormSlice = createSlice({
     setCurrentItem: (state, action: PayloadAction<{ item: Menu }>) => {
       state.currentItem = action.payload.item;
     },
+    clear: state => {
+      state.currentItem = null;
+    },
     updateName: (state, action: PayloadAction<{ name: string }>) => {
       if (!state.currentItem) {
         return;
@@ -55,6 +58,14 @@ const menuFormSlice = createSlice({
       }
       const { id, price } = action.payload;
       updateMenuItem(state.currentItem.items, id, { price });
+    },
+    deleteMenuItem: (state, action: PayloadAction<{ id: number }>) => {
+      if (!state.currentItem) {
+        return;
+      }
+      state.currentItem.items = state.currentItem.items.filter(
+        item => item.id !== action.payload.id
+      );
     },
   },
 });

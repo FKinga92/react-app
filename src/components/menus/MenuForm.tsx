@@ -1,18 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { getEmptyMenuItem } from '../../models/MenuItem';
 import { AppDispatch } from '../../store';
 import { menuFormSelectors } from '../../store/menu-form/menu-form-selectors';
 import { menuFormActions } from '../../store/menu-form/menu-form-slice';
+import { menuActions } from '../../store/menu/menu-slice';
 import MenuItemFields from './MenuItemFields';
 
 const MenuForm: React.FC = () => {
   const menu = useSelector(menuFormSelectors.getItem);
   const dispatch = useDispatch<AppDispatch>();
+  const history = useHistory();
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(menu);
+    if (!menu) {
+      return;
+    }
+    dispatch(menuActions.addMenu({ menu }));
+    history.push({ pathname: '/' });
+    dispatch(menuFormActions.clear());
   };
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
