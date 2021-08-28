@@ -1,0 +1,14 @@
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px 0;
+  padding: 10px 5px;
+  background-color: rgb(240, 240, 240);
+  max-height: 100%;
+  overflow: auto;
+}
+
+.menu-item p:last-child {
+  font-weight: 500;
+}

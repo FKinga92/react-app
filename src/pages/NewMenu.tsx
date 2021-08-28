@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 
+import classes from './Form.module.css';
 import MenuForm from '../components/menus/MenuForm';
 import { getEmptyMenu } from '../models/Menu';
 import { MenuFormType } from '../models/MenuForm';
@@ -11,7 +12,7 @@ const NewMenuPage: React.FC = () => {
   dispatch(menuFormActions.setCurrentItem({ item: getEmptyMenu() }));
 
   return (
-    <div>
+    <div className={classes['menu-form']}>
       <h1>Add a new menu</h1>
       <MenuForm type={MenuFormType.New} />
     </div>

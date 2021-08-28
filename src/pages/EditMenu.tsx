@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import classes from './Form.module.css';
 import MenuForm from '../components/menus/MenuForm';
 import { MenuFormType } from '../models/MenuForm';
 import { AppDispatch } from '../store';
@@ -17,7 +18,7 @@ const EditMenuPage: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className={classes['menu-form']}>
       <h1>Edit menu</h1>
       {menu ? <MenuForm type={MenuFormType.Edit} /> : <p>Could not find menu</p>}
     </div>

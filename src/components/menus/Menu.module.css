@@ -1,0 +1,41 @@
+.menu {
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 25px;
+  width: 60%;
+}
+
+.menu-name {
+  width: 40%;
+  text-align: center;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: solid 2px lightgrey;
+}
+
+.menu-name p {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 25px;
+}
+
+.menu-name a {
+  color: white;
+  text-decoration: none;
+  border: 2px solid #641102;
+  background-color: #8a1a06;
+  padding: 5px;
+  font-weight: 500;
+  display: block;
+}

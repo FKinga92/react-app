@@ -43,28 +43,34 @@ const MenuItemFields: React.FC<{ id: number }> = props => {
   };
 
   return (
-    <div>
+    <div className='menu-item'>
       {menuItem && (
         <Fragment>
-          <label htmlFor={nameInputId}>Name:</label>
-          <input
-            type='text'
-            id={nameInputId}
-            value={menuItem.name.value}
-            onChange={onNameChange}
-            onBlur={onNameInputBlur}
-          />
-          {nameInputIsInvalid && <p className='error'>Name cannot be blank</p>}
-          <label htmlFor={priceInputId}>Price:</label>
-          <input
-            type='number'
-            id={priceInputId}
-            value={menuItem.price.value}
-            onChange={onPriceChange}
-            onBlur={onPriceInputBlur}
-          />
-          {priceInputIsInvalid && <p className='error'>Price cannot be blank or 0.</p>}
-          <button type='button' title='Delete item' onClick={onDelete}>
+          <div>
+            <div className='form-control'>
+              <label htmlFor={nameInputId}>Name:</label>
+              <input
+                type='text'
+                id={nameInputId}
+                value={menuItem.name.value}
+                onChange={onNameChange}
+                onBlur={onNameInputBlur}
+              />
+              {nameInputIsInvalid && <p className='error'>Name cannot be blank!</p>}
+            </div>
+            <div className='form-control'>
+              <label htmlFor={priceInputId}>Price:</label>
+              <input
+                type='number'
+                id={priceInputId}
+                value={menuItem.price.value}
+                onChange={onPriceChange}
+                onBlur={onPriceInputBlur}
+              />
+              {priceInputIsInvalid && <p className='error'>Price cannot be blank or 0!</p>}
+            </div>
+          </div>
+          <button className='delete-item' type='button' title='Delete item' onClick={onDelete}>
             X
           </button>
         </Fragment>

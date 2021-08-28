@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import './MenuForm.css';
 import MenuItemFields from './MenuItemFields';
 import { MenuFormType } from '../../models/MenuForm';
 import { getEmptyMenuItem } from '../../models/MenuItem';
@@ -76,7 +77,7 @@ const MenuForm: React.FC<{ type: MenuFormType }> = props => {
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <div>
+        <div className='form-control'>
           <label htmlFor='name'>Name:</label>
           <input
             type='text'
@@ -87,29 +88,33 @@ const MenuForm: React.FC<{ type: MenuFormType }> = props => {
           />
           {nameInputIsInvalid && <p className='error'>Name cannot be blank!</p>}
         </div>
-        <div>
-          <p>Items:</p>
+        <div className='menu-items'>
+          <div className='items'>
+            <p>Items:</p>
+            <button className='add' type='button' onClick={onAddItem}>
+              Add item
+            </button>
+          </div>
           {isTouched && menuItems.length === 0 && (
             <p className='error'>Please add at least one menu item!</p>
           )}
-          <button type='button' onClick={onAddItem}>
-            Add item
-          </button>
           {menuItems.map(item => (
             <MenuItemFields key={item.id} id={item.id} />
           ))}
         </div>
-        <button>{isEditForm ? 'Save' : 'Add menu'}</button>
-        {isEditForm && (
-          <div>
-            <button type='button' onClick={onCancel}>
-              Cancel
-            </button>
-            <button type='button' onClick={onDelete}>
-              Delete Menu
-            </button>
-          </div>
-        )}
+        <div className='buttons'>
+          <button>{isEditForm ? 'Save' : 'Add menu'}</button>
+          {isEditForm && (
+            <div>
+              <button type='button' onClick={onCancel}>
+                Cancel
+              </button>
+              <button type='button' onClick={onDelete}>
+                Delete Menu
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </form>
   );

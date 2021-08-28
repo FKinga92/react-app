@@ -1,11 +1,14 @@
+import { Fragment } from 'react';
+
 import Header from './Header';
+import classes from './Layout.module.css';
 
 const Layout: React.FC = props => {
   return (
-    <div>
+    <Fragment>
       <Header />
-      <main>{props.children}</main>
-    </div>
+      <main className={classes.main}>{props.children}</main>
+    </Fragment>
   );
 };
 
