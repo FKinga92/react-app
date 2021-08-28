@@ -8,13 +8,22 @@ import { AppDispatch } from '../../store';
 import { menuFormSelectors } from '../../store/menu-form/menu-form-selectors';
 import { menuFormActions } from '../../store/menu-form/menu-form-slice';
 import { menuActions } from '../../store/menu/menu-slice';
+import { Menu } from '../../models/Menu';
 
 const MenuForm: React.FC<{ type: MenuFormType }> = props => {
-  const menu = useSelector(menuFormSelectors.getItem);
+  const menuId = useSelector(menuFormSelectors.getEditedMenuId);
+  const menuName = useSelector(menuFormSelectors.getItemName);
+  const menuItems = useSelector(menuFormSelectors.getMenuItems);
   const dispatch = useDispatch<AppDispatch>();
   const history = useHistory();
 
   const isEditForm = props.type === MenuFormType.Edit;
+  const nameInputIsInvalid = !menuName.isValid && menuName.isTouched;
+  const hasInvalidMenuItems =
+    menuItems.length === 0 || menuItems.some(item => !item.name.isValid || !item.price.isValid);
+  const isValid = menuName.isValid && !hasInvalidMenuItems;
+  const isTouched =
+    menuName.isTouched || menuItems.some(item => item.name.isTouched || item.price.isTouched);
 
   const redirect = () => {
     history.push({ pathname: '/' });
@@ -23,11 +32,22 @@ const MenuForm: React.FC<{ type: MenuFormType }> = props => {
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!menu) {
+    dispatch(menuFormActions.setAllTouched());
+
+    if (!menuId || !isValid) {
       return;
     }
 
     const actionToDispatch = isEditForm ? menuActions.updateMenu : menuActions.addMenu;
+    const menu: Menu = {
+      id: menuId,
+      name: menuName.value,
+      items: menuItems.map(item => ({
+        id: item.id,
+        name: item.name.value,
+        price: item.price.value,
+      })),
+    };
     dispatch(actionToDispatch({ menu }));
     redirect();
   };
@@ -37,48 +57,60 @@ const MenuForm: React.FC<{ type: MenuFormType }> = props => {
   };
 
   const onDelete = () => {
-    dispatch(menuActions.deleteMenu({ id: menu!.id }));
+    dispatch(menuActions.deleteMenu({ id: menuId }));
     redirect();
   };
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(menuFormActions.updateName({ name: event.target.value }));
+    dispatch(menuFormActions.updateName({ name: event.target.value.trim() }));
+  };
+
+  const onNameInputBlur = () => {
+    dispatch(menuFormActions.setMenuNameIsTouched({ isTouched: true }));
   };
 
   const onAddItem = () => {
-    dispatch(menuFormActions.addMenuItem({ item: getEmptyMenuItem() }));
+    dispatch(menuFormActions.addEmptyMenuItem({ item: getEmptyMenuItem() }));
   };
 
   return (
     <form onSubmit={onSubmit}>
-      {menu && (
+      <div>
         <div>
-          <div>
-            <label htmlFor='name'>Name:</label>
-            <input type='text' id='name' value={menu.name} onChange={onNameChange} />
-          </div>
-          <div>
-            <p>Items:</p>
-            <button type='button' onClick={onAddItem}>
-              Add item
-            </button>
-            {menu.items.map(item => (
-              <MenuItemFields key={item.id} item={item} />
-            ))}
-          </div>
-          <button>{isEditForm ? 'Save' : 'Add menu'}</button>
-          {isEditForm && (
-            <div>
-              <button type='button' onClick={onCancel}>
-                Cancel
-              </button>
-              <button type='button' onClick={onDelete}>
-                Delete Menu
-              </button>
-            </div>
-          )}
+          <label htmlFor='name'>Name:</label>
+          <input
+            type='text'
+            id='name'
+            value={menuName.value}
+            onChange={onNameChange}
+            onBlur={onNameInputBlur}
+          />
+          {nameInputIsInvalid && <p className='error'>Name cannot be blank!</p>}
         </div>
-      )}
+        <div>
+          <p>Items:</p>
+          {isTouched && menuItems.length === 0 && (
+            <p className='error'>Please add at least one menu item!</p>
+          )}
+          <button type='button' onClick={onAddItem}>
+            Add item
+          </button>
+          {menuItems.map(item => (
+            <MenuItemFields key={item.id} id={item.id} />
+          ))}
+        </div>
+        <button>{isEditForm ? 'Save' : 'Add menu'}</button>
+        {isEditForm && (
+          <div>
+            <button type='button' onClick={onCancel}>
+              Cancel
+            </button>
+            <button type='button' onClick={onDelete}>
+              Delete Menu
+            </button>
+          </div>
+        )}
+      </div>
     </form>
   );
 };
