@@ -27,9 +27,7 @@ const initialState: MenuFormState = {
   items: [],
 };
 
-const findMenuItemById = (items: MenuItemForm[], id: number) => {
-  return items.find(item => item.id === id);
-};
+const findMenuItemById = (items: MenuItemForm[], id: number) => items.find(item => item.id === id);
 
 const updateMenuItemForm = (items: MenuItemForm[], id: number, property: Partial<MenuItemForm>) => {
   const menuItem = findMenuItemById(items, id);
@@ -39,13 +37,9 @@ const updateMenuItemForm = (items: MenuItemForm[], id: number, property: Partial
   return Object.assign(menuItem, property);
 };
 
-const validateName = (name: string) => {
-  return name !== '';
-};
+const validateName = (name: string) => name !== '';
 
-const validatePrice = (price: string) => {
-  return price !== '' && parseInt(price) > 0;
-};
+const validatePrice = (price: string) => price !== '' && parseInt(price) > 0;
 
 const menuFormSlice = createSlice({
   name: 'menuForm',

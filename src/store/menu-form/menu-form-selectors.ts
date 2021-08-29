@@ -1,9 +1,7 @@
 import { RootState } from '../';
 
-const getEditedMenuId = (state: RootState) => state.menuForm.id;
-const getItemName = (state: RootState) => state.menuForm.name;
-const getMenuItems = (state: RootState) => state.menuForm.items;
-const getMenuItem = (id: number) => (state: RootState) =>
+export const getEditedMenuId = (state: RootState) => state.menuForm.id;
+export const getMenuName = (state: RootState) => state.menuForm.name;
+export const getMenuItems = (state: RootState) => state.menuForm.items;
+export const getMenuItem = (id: number) => (state: RootState) =>
   state.menuForm.items.find(item => item.id === id);
-
-export const menuFormSelectors = { getEditedMenuId, getItemName, getMenuItem, getMenuItems };

@@ -2,10 +2,10 @@ import { useSelector } from 'react-redux';
 
 import classes from './Menus.module.css';
 import Menu from '../components/menus/Menu';
-import { menuSelectors } from '../store/menu/menu-selectors';
+import { getMenus } from '../store/menu/menu-selectors';
 
 const MenusPage: React.FC = () => {
-  const menus = useSelector(menuSelectors.getMenus);
+  const menus = useSelector(getMenus);
 
   return (
     <div className={classes.menus}>

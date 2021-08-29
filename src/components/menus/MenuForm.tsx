@@ -6,15 +6,19 @@ import MenuItemFields from './MenuItemFields';
 import { MenuFormType } from '../../models/MenuForm';
 import { getEmptyMenuItem } from '../../models/MenuItem';
 import { AppDispatch } from '../../store';
-import { menuFormSelectors } from '../../store/menu-form/menu-form-selectors';
+import {
+  getEditedMenuId,
+  getMenuName,
+  getMenuItems,
+} from '../../store/menu-form/menu-form-selectors';
 import { menuFormActions } from '../../store/menu-form/menu-form-slice';
 import { menuActions } from '../../store/menu/menu-slice';
 import { Menu } from '../../models/Menu';
 
 const MenuForm: React.FC<{ type: MenuFormType }> = props => {
-  const menuId = useSelector(menuFormSelectors.getEditedMenuId);
-  const menuName = useSelector(menuFormSelectors.getItemName);
-  const menuItems = useSelector(menuFormSelectors.getMenuItems);
+  const menuId = useSelector(getEditedMenuId);
+  const menuName = useSelector(getMenuName);
+  const menuItems = useSelector(getMenuItems);
   const dispatch = useDispatch<AppDispatch>();
   const history = useHistory();
 

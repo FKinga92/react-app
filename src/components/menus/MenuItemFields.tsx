@@ -2,14 +2,14 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppDispatch } from '../../store';
-import { menuFormSelectors } from '../../store/menu-form/menu-form-selectors';
+import { getMenuItem } from '../../store/menu-form/menu-form-selectors';
 import { menuFormActions } from '../../store/menu-form/menu-form-slice';
 
 const MenuItemFields: React.FC<{ id: number }> = props => {
   const nameInputId = `item-name-${props.id}`;
   const priceInputId = `item-price-${props.id}`;
 
-  const menuItem = useSelector(menuFormSelectors.getMenuItem(props.id));
+  const menuItem = useSelector(getMenuItem(props.id));
   const dispatch = useDispatch<AppDispatch>();
 
   const nameInputIsInvalid = !!menuItem && !menuItem.name.isValid && menuItem.name.isTouched;
